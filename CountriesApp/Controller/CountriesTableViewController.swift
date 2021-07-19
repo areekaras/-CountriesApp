@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CountriesTableViewController.swift
 //  CountriesApp
 //
 //  Created by Shibili Areekara on 18/07/21.
@@ -14,6 +14,7 @@ class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
     private var countryViewModels = [CountryProtocol]()
     
     var coordinator: AppCoordinator?
+    var isFetchingData = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,34 +45,51 @@ class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
     }
 
     @objc private func fetchData() {
+        self.isFetchingData = true
         countriesTableVCViewModel.fetchData { [unowned self] (result) in
+            self.isFetchingData = false
+            self.countryViewModels.removeAll()
+            
             switch result {
                 case .success(let countries):
                     self.updateUIForData(countries)
                 case .failure(let error):
                     print("error \(error.localizedDescription)")
             }
+            
+            updateTableViewUI()
         }
         
     }
     
     private func updateUIForData(_ countries: [Country]) {
-        self.countryViewModels.removeAll()
+        
         self.countryViewModels.insert(contentsOf: countries.map({
             return CountryViewModel(country: $0)
         }), at: 0)
 
+    }
+    
+    private func updateTableViewUI() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         })
     }
+    
 }
 
 // MARK: - Table View Data Source
 extension CountriesTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return (self.countryViewModels.count == 0) ? 2 : self.countryViewModels.count
+        
+        if (self.countryViewModels.count == 0) {
+            self.tableView.setMessageForBackgroundView("No countries...")
+        } else {
+            self.tableView.emptyBackgroundView()
+        }
+        
+        return (self.isFetchingData) ? 8 : self.countryViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,7 +97,7 @@ extension CountriesTableViewController {
     }
     
     fileprivate func configureCountryTableViewCell(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (self.countryViewModels.count == 0) {
+        if (self.isFetchingData) {
             let cell = tableView.dequeueReusableCell(with: SkeletonViewCell.self, for: indexPath)
             return cell
         } else {
@@ -92,6 +110,8 @@ extension CountriesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        coordinator?.showCountryDetailView(countryViewModels[indexPath.row])
+        if !(self.isFetchingData) {
+            coordinator?.showCountryDetailView(countryViewModels[indexPath.row])
+        }
     }
 }

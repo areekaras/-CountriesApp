@@ -8,17 +8,21 @@
 import UIKit
 
 class SkeletonView: UIView {
+    
     let gradientLayer = CAGradientLayer()
     var gradientColorOne: CGColor = UIColor.secondarySystemBackground.cgColor//UIColor(white: 0.85, alpha: 1.0).cgColor
     var gradientColorTwo: CGColor = UIColor.systemBackground.cgColor//UIColor(white: 0.95, alpha: 1.0).cgColor
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         commonInit()
     }
+    
     func commonInit() {
         gradientLayer.frame = self.bounds
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 1.0)
@@ -32,18 +36,20 @@ class SkeletonView: UIView {
         gradientLayer.add(animation, forKey: animation.keyPath)
 
     }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         updateFrames()
     }
+    
     func updateFrames() {
         for traversedLayer in layer.sublayers ?? [] {
-            print(gradientLayer == traversedLayer)
             if gradientLayer == traversedLayer {
                 traversedLayer.frame = self.bounds
             }
         }
     }
+    
     func addAnimation() -> CABasicAnimation {
         let animation = CABasicAnimation(keyPath: "locations")
         animation.fromValue = [-1.0, -0.5, 0.0]
@@ -52,6 +58,7 @@ class SkeletonView: UIView {
         animation.duration = 0.9
         return animation
     }
+    
     func startAnimating() {
         let animation = addAnimation()
         gradientLayer.add(animation, forKey: animation.keyPath)

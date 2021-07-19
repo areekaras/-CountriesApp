@@ -1,6 +1,6 @@
 //
 //  CountryTableViewCell.swift
-//  RestCountriesApi
+//  CountriesApp
 //
 //  Created by Shibili Areekara on 17/07/21.
 //

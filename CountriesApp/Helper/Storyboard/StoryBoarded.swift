@@ -30,9 +30,11 @@ extension StoryBoardInitiable where Self: UIViewController {
         let storyBoard: UIStoryboard = UIStoryboard(name: storyBoardName.name, bundle: bundle)
         let controllerName: String = String(describing: self)
         let instantiatedInstance = storyBoard.instantiateViewController(withIdentifier: controllerName)
+        
         guard let instantiatedController: T = instantiatedInstance as? T else {
             fatalError("Could not instantiate initial storyboard with name: \(String(describing: self))")
         }
+        
         return instantiatedController
     }
 }
