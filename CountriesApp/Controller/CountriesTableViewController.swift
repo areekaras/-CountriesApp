@@ -10,6 +10,7 @@ import UIKit
 class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
     static var storyBoardName: EXStorBoardName { .default }
     
+    private var countriesTableVCViewModel: CountriesTableVCViewModel = .init()
     private var countryViewModels = [CountryProtocol]()
     
     var coordinator: AppCoordinator?
@@ -42,18 +43,27 @@ class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
     }
 
     @objc private func fetchData() {
-        Network().fetchData() { [unowned self] (countryModels) in
-            self.countryViewModels.removeAll()
-            self.countryViewModels.insert(contentsOf: countryModels.map({
-                return CountryViewModel(country: $0)
-            }), at: 0)
-            
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.refreshControl?.endRefreshing()
- 
+        countriesTableVCViewModel.fetchData { [unowned self] (result) in
+            switch result {
+                case .success(let countries):
+                    self.updateUIForData(countries)
+                case .failure(let error):
+                    print("error \(error.localizedDescription)")
             }
         }
+        
+    }
+    
+    private func updateUIForData(_ countries: [Country]) {
+        self.countryViewModels.removeAll()
+        self.countryViewModels.insert(contentsOf: countries.map({
+            return CountryViewModel(country: $0)
+        }), at: 0)
+        
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+         }
     }
 }
 
