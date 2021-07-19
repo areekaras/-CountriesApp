@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SkeletonViewCell" rowHeight="132" id="KGk-i7-Jjw" customClass="SkeletonViewCell" customModule="CountriesApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="470" height="132"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="470" height="132"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8bY-EJ-fyI">
+                        <rect key="frame" x="10" y="5" width="450" height="122"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="e6l-wp-ROg">
+                                <rect key="frame" x="110" y="10" width="325" height="80"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WcG-B7-lU2" customClass="SkeletonView" customModule="CountriesApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="325" height="32.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66f-ap-Kgm" customClass="SkeletonView" customModule="CountriesApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="47.5" width="325" height="32.5"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eyf-th-vVe" customClass="SkeletonView" customModule="CountriesApp" customModuleProvider="target">
+                                <rect key="frame" x="15" y="10" width="80" height="80"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="LNM-MJ-iaM"/>
+                                    <constraint firstAttribute="width" constant="80" id="fnu-WA-CJo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="e6l-wp-ROg" firstAttribute="centerY" secondItem="Eyf-th-vVe" secondAttribute="centerY" id="D3R-ew-HOF"/>
+                            <constraint firstItem="Eyf-th-vVe" firstAttribute="leading" secondItem="8bY-EJ-fyI" secondAttribute="leading" constant="15" id="Ftm-om-kD7"/>
+                            <constraint firstAttribute="trailing" secondItem="e6l-wp-ROg" secondAttribute="trailing" constant="15" id="XdM-Ha-UVS"/>
+                            <constraint firstItem="e6l-wp-ROg" firstAttribute="leading" secondItem="Eyf-th-vVe" secondAttribute="trailing" constant="15" id="edq-Er-frP"/>
+                            <constraint firstItem="Eyf-th-vVe" firstAttribute="top" secondItem="8bY-EJ-fyI" secondAttribute="top" constant="10" id="ejb-bw-bwc"/>
+                            <constraint firstItem="e6l-wp-ROg" firstAttribute="top" secondItem="8bY-EJ-fyI" secondAttribute="top" constant="10" id="epv-cW-ce2"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Eyf-th-vVe" secondAttribute="bottom" constant="10" id="tLJ-12-SMO"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8bY-EJ-fyI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="2kH-8h-Nz0"/>
+                    <constraint firstAttribute="bottom" secondItem="8bY-EJ-fyI" secondAttribute="bottom" constant="5" id="BPT-gU-JNF"/>
+                    <constraint firstAttribute="trailing" secondItem="8bY-EJ-fyI" secondAttribute="trailing" constant="10" id="Xr8-3U-svj"/>
+                    <constraint firstItem="8bY-EJ-fyI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="lZf-fo-eE9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="-265.21739130434787" y="35.491071428571423"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

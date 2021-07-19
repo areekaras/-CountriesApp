@@ -40,6 +40,7 @@ class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
     
     private func registerCustomTableViewCells () {
         self.tableView.register(cellType: CountryTableViewCell.self)
+        self.tableView.register(cellType: SkeletonViewCell.self)
     }
 
     @objc private func fetchData() {
@@ -59,18 +60,18 @@ class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
         self.countryViewModels.insert(contentsOf: countries.map({
             return CountryViewModel(country: $0)
         }), at: 0)
-        
-        DispatchQueue.main.async {
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
-         }
+        })
     }
 }
 
 // MARK: - Table View Data Source
 extension CountriesTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.countryViewModels.count
+        return (self.countryViewModels.count == 0) ? 2 : self.countryViewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,10 +79,16 @@ extension CountriesTableViewController {
     }
     
     fileprivate func configureCountryTableViewCell(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(with: CountryTableViewCell.self, for: indexPath)
-        cell.countryViewModel = countryViewModels[indexPath.row]
-        
-        return cell
+        if (self.countryViewModels.count == 0) {
+            let cell = tableView.dequeueReusableCell(with: SkeletonViewCell.self, for: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(with: CountryTableViewCell.self, for: indexPath)
+            cell.countryViewModel = countryViewModels[indexPath.row]
+            
+            return cell
+        }
+
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
