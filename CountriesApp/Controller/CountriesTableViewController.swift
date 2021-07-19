@@ -7,9 +7,12 @@
 
 import UIKit
 
-class CountriesTableViewController: UITableViewController {
-        
+class CountriesTableViewController: UITableViewController,StoryBoardInitiable {
+    static var storyBoardName: EXStorBoardName { .default }
+    
     private var countryViewModels = [CountryProtocol]()
+    
+    var coordinator: AppCoordinator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +75,6 @@ extension CountriesTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = UIStoryboard.init(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "CountryDetailsTableViewController") as? CountryDetailsTableViewController
-        vc?.countryViewModel = countryViewModels[indexPath.row]
-        
-        self.navigationController?.pushViewController(vc!, animated: true)
+        coordinator?.showCountryDetailView(countryViewModels[indexPath.row])
     }
 }

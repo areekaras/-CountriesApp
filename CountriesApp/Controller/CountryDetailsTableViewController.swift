@@ -7,7 +7,8 @@
 
 import UIKit
 
-class CountryDetailsTableViewController: UITableViewController {
+class CountryDetailsTableViewController: UITableViewController, StoryBoardInitiable {
+    static var storyBoardName: EXStorBoardName { .default }
     
     var countryViewModel: CountryProtocol? {
         didSet {

@@ -11,10 +11,11 @@ import SDWebImageSVGCoder
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        setUpAppCoordinator()
         setUpSVGCoder()
         return true
     }
@@ -33,6 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    func setUpAppCoordinator() {
+        let navigationController: UINavigationController = UINavigationController()
+        let appCoordinator: AppCoordinator = .init(navigationController: navigationController)
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationController
+        appCoordinator.start()
+        window?.makeKeyAndVisible()
+    }
+    
     func setUpSVGCoder() {
         let SVGCoder = SDImageSVGCoder.shared
         SDImageCodersManager.shared.addCoder(SVGCoder)
