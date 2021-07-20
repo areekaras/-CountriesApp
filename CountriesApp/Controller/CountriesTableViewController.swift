@@ -84,7 +84,7 @@ extension CountriesTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (self.countryViewModels.count == 0) {
-            self.tableView.setMessageForBackgroundView("No countries...")
+            self.tableView.setMessageForBackgroundView("No countries found...")
         } else {
             self.tableView.emptyBackgroundView()
         }

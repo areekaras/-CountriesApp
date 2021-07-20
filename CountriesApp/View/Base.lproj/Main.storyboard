@@ -32,9 +32,6 @@
                             </fragment>
                         </attributedString>
                     </refreshControl>
-                    <connections>
-                        <segue destination="IDM-fW-lmg" kind="show" identifier="showCountryDetails" id="xFW-J9-Weq"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ffx-Lt-x6z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
